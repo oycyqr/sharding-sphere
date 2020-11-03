@@ -2,8 +2,8 @@ package com.oyc.shardingsphere.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.oyc.shardingsphere.domain.User;
-import com.oyc.shardingsphere.mapper.UserMapper;
 import com.oyc.shardingsphere.service.UserService;
+import org.apache.shardingsphere.api.hint.HintManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -70,5 +70,20 @@ public class UserController {
         //queryWrapper.ge("user_id",1002)
         queryWrapper.orderByAsc("user_id");
         return userService.list(queryWrapper);
+    }
+
+    /**
+     * 查询用户-指定数据源
+     *
+     * @return
+     */
+    @GetMapping("ds")
+    public Object user() {
+        logger.info("********查询用户 强制路由");
+        HintManager hintManager = HintManager.getInstance();
+        hintManager.setMasterRouteOnly();
+        List<User> userList = userService.list();
+        hintManager.close();
+        return userList;
     }
 }
