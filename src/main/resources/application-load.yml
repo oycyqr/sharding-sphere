@@ -1,7 +1,7 @@
 server:
   port: 8888
   servlet:
-    context-path: /share
+    context-path: /load
 
 #### spring  ####
 spring:
@@ -34,26 +34,19 @@ spring:
         url: jdbc:mysql://146.56.192.87:3306/shardingsphere2?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&serverTimezone=GMT%2B8
         username: oyc
         password: oyc@123123
-      # *** 数据库分库分表配置 start
-      rules:
-        replica-query:
-          data-sources:
-            ds0:
-              primary-data-source-name: ds0 # 主数据源名称
-              replica-data-source-names: ds1,ds2 # 从数据源名称，多个从数据源用逗号分隔
-              load-balancer-name: random # 负载均衡算法名称
 
-#      masterslave:
-#        # 查询时的负载均衡算法，目前有2种算法，round_robin（轮询）和random（随机），
-#        # 算法接口是io.shardingjdbc.core.api.algorithm.masterslave.MasterSlaveLoadBalanceAlgorithm。
-#        # 实现类有RandomMasterSlaveLoadBalanceAlgorithm 和 RoundRobinMasterSlaveLoadBalanceAlgorithm。
-#        load-balance-algorithm-type: random
-#        name: dataSource
-#        # 主数据源名称
-#        master-data-source-name: ds0
-#        # 从数据源名称，多个用逗号隔开
-#        slave-data-source-names: ds1,ds2
-      # *** 数据库分库分表配置 end
+    # *** 数据库分库分表配置 start
+    masterslave:
+      # 查询时的负载均衡算法，目前有2种算法，round_robin（轮询）和random（随机），
+      # 算法接口是io.shardingjdbc.core.api.algorithm.masterslave.MasterSlaveLoadBalanceAlgorithm。
+      # 实现类有RandomMasterSlaveLoadBalanceAlgorithm 和 RoundRobinMasterSlaveLoadBalanceAlgorithm。
+      load-balance-algorithm-type: round_robin
+      name: dataSource
+      # 主数据源名称
+      master-data-source-name: ds0
+      # 从数据源名称，多个用逗号隔开
+      slave-data-source-names: ds1,ds2
+    # *** 数据库分库分表配置 end
 
     props:
       # 打印SQL

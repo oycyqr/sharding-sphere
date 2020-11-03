@@ -51,9 +51,8 @@ spring:
           encryptor_MD5:
             type: MD5
           encryptor_aes:
-            # 加密、解密器的名字，内置的为MD5，aes。  可以自定义，实现
-            # org.apache.shardingsphere.encrypt.strategy.spi.Encryptor 或者 org.apache.shardingsphere.encrypt.strategy.spi.QueryAssistedEncryptor
-            # 这两个接口即可
+            # 加密、解密器的名字，内置的为MD5、aes、RC4。 可以自定义，
+            # 实现 org.apache.shardingsphere.encrypt.strategy.spi.Encryptor 或者 org.apache.shardingsphere.encrypt.strategy.spi.QueryAssistedEncryptor 这两个接口即可
             type: aes
             props:
               aes.key.value: 123456
