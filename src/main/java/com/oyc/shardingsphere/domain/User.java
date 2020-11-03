@@ -14,7 +14,7 @@ import java.sql.Date;
  * @Version 1.0
  */
 @Data
-@TableName("user_ms")
+//@TableName("user_ms")
 public class User implements Serializable {
 
     private static final long serialVersionUID = 358157380505039579L;
@@ -55,7 +55,7 @@ public class User implements Serializable {
     /**
      * 年龄
      */
-    private String age;
+    private Integer age;
 
     /**
      * 性别
