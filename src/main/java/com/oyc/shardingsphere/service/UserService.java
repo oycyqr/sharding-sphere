@@ -10,5 +10,9 @@ import java.util.List;
  * @date 2020-11-03 23:21:52
  */
 public interface UserService extends IService<User> {
+    /**
+     * 查询用户、地址
+     * @return
+     */
     List getUserAddressList();
 }

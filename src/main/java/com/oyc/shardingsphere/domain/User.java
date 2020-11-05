@@ -1,7 +1,7 @@
 package com.oyc.shardingsphere.domain;
 
 import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -10,7 +10,7 @@ import java.sql.Date;
 /**
  * @Description: (User)实体类
  * @Author oyc
- * @Date 2020/11/03 16:36
+ * @Date 2020/11/05 10:36
  * @Version 1.0
  */
 @Data
@@ -19,7 +19,7 @@ public class User implements Serializable {
 
     private static final long serialVersionUID = 358157380505039579L;
 
-    @TableId
+//    @TableId
     private Long userId;
 
     /**
@@ -65,6 +65,8 @@ public class User implements Serializable {
     /**
      * 创建时间
      */
-    private Date create_time;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+//    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date createTime;
 
 }

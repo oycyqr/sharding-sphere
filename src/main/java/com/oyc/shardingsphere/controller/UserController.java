@@ -6,19 +6,16 @@ import com.oyc.shardingsphere.service.UserService;
 import org.apache.shardingsphere.api.hint.HintManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
 
 /**
  * @ClassName TestController
- * @Description TestController
+ * @Description 用户控制类
  * @Author oyc
- * @Date 2020/11/03 16:56
+ * @Date 2020/11/05 10:56
  * @Version
  */
 @RestController
@@ -33,9 +30,9 @@ public class UserController {
     private UserService userService;
 
     /**
-     * 用户列表
-     *
-     * @return
+     * @return 用户信息列表
+     * @throws
+     * @Description: 获取用户列表-all
      */
     @RequestMapping
     public List<User> userList() {
@@ -45,9 +42,10 @@ public class UserController {
     }
 
     /**
-     * 保存用户
-     *
-     * @return
+     * @param user 用户信息
+     * @return 用户信息
+     * @throws
+     * @Description: 新增用户
      */
     @PostMapping
     public User save(User user) {
@@ -58,17 +56,30 @@ public class UserController {
     }
 
     /**
-     * 查询用户-条件
-     *
-     * @return
+     * @param user 用户
+     * @return 用户信息
+     * @throws
+     * @Description: 更新用户
+     */
+    @PutMapping
+    public User update(User user) {
+        logger.info("********update User");
+        userService.saveOrUpdate(user);
+        return user;
+    }
+
+    /**
+     * @param user 用户
+     * @return 查询列表
+     * @throws
+     * @Description: 查询用户-按条件查询
      */
     @GetMapping("list")
     public Object getUser(User user) {
         logger.info("********s查询用户");
         QueryWrapper<User> queryWrapper = new QueryWrapper();
         queryWrapper.setEntity(user);
-        //queryWrapper.ge("user_id",1002)
-        queryWrapper.orderByAsc("user_id");
+        //queryWrapper.orderByAsc("user_id");
         return userService.list(queryWrapper);
     }
 
@@ -85,5 +96,17 @@ public class UserController {
         List<User> userList = userService.list();
         hintManager.close();
         return userList;
+    }
+
+    /**
+     * 查询用户-地址
+     *
+     * @return
+     */
+    @GetMapping("ua")
+    public Object userAddress() {
+        logger.info("********查询用户 用户-地址");
+        List list = userService.getUserAddressList();
+        return list;
     }
 }

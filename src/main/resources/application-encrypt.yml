@@ -1,34 +1,3 @@
-server:
-  port: 8888
-  servlet:
-    context-path: /share
-
-#### mybatis-plus ###
-mybatis-plus:
-  # 如果是放在src/main/java目录下 classpath:/com/yourpackage/*/mapper/*Mapper.xml
-  # 如果是放在resource目录 classpath:/mapper/*Mapper.xml
-  mapper-locations: classpath:mapper/*.xml
-  #实体扫描，多个package用逗号或者分号分隔
-  type-aliases-package: com.oyc.shardingsphere.domain
-  configuration:
-    map-underscore-to-camel-case: true
-    cache-enabled: false
-  #主键类型  0:"数据库ID自增", 1:"用户输入ID",2:"全局唯一ID (数字类型唯一ID)", 3:"全局唯一ID UUID";
-  global-config:
-    db-config:
-      id-type: auto
-      #字段策略 0:"忽略判断",1:"非 NULL 判断"),2:"非空判断"
-      field-strategy: not_empty
-      #驼峰下划线转换
-      column-underline: true
-      #逻辑删除配置
-      logic-delete-value: 0
-      logic-not-delete-value: 1
-      db-type: mysql
-  #刷新mapper 调试神器
-  refresh: false
-
-
 #################################### shardingsphere 配置  ###########################################################
 spring:
   # 配置说明地址 http://shardingsphere.apache.org/document/legacy/3.x/document/cn/manual/sharding-proxy/configuration/
@@ -43,7 +12,7 @@ spring:
         driverClassName: com.mysql.cj.jdbc.Driver
         url: jdbc:mysql://146.56.192.87:3306/shardingsphere?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&serverTimezone=GMT%2B8
         username: oyc
-        password: oyc@123123
+        password: 111111
     sharding:
       # 数据脱敏规则配置---start
       encrypt-rule:
@@ -76,7 +45,6 @@ spring:
                 # 加密器名字
                 encryptor: encryptor_aes
       # 数据脱敏规则配置---end
-
     props:
       # 打印SQL
       sql.show: true
@@ -85,7 +53,5 @@ spring:
           metadata: true
           # 是否在启动时检查分表元数据一致性
           enabled: true
-      query:
-        with:
-          cipher:
-            column: true
+      # 查询-使用密文列
+      query.with.cipher.column: true
